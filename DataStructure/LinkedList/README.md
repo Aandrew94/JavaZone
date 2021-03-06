@@ -1,1 +1,388 @@
-LinkedList readme file
+# LinkedList as data structure
+<br>
+A LinkedList is a data structure that represents a sequence of nodes.
+
+-   In a singly linked list, each node points to the next node in the linked list.
+-   In a doubly linked list, each node points to both the next node and the previous node
+
+The following diagram depicts a singly linked list:
+![img_2.png](resources/img_2.png)
+
+The following diagram depicts a doubly linked list:
+![img_1.png](resources/img_1.png)
+
+<br>
+Unlike an array, a linked list does not provide constant time access to a particular "index" within the list.
+This means that if you'd like to find the Nth element in the list, you will need to iterate through N elements.
+
+The benefit of a linked list is that you can add and remove items from the beginning og the list in constant time.
+For specific application, this can be useful.
+
+<br>
+
+---
+## The node
+<br>
+
+We have to initially create a class called `Node` and provide it with two attributes(properties) required by any node.
+
+-  The data variable, in this case integer, were node data is stored.
+-  The **next** variable of type Node, basically stores the _memory location_ of an object of type **Node**.
+
+```java
+//  package com.jetbrains;
+public class Node {
+    
+    public  int     data;
+    public  Node    next;
+
+    public  Node(int data) {
+        this.data   =   data;
+        this.next   =   null;
+    }
+}
+```
+
+---
+
+
+## The LinkedList
+<br>
+There are 2 basically ways to implement it:
+
+1. Creating a Node class and inside create the methods, for example `addToTail`
+```java
+//  package com.jetbrains;
+public class Node{
+    public  int     data;
+    public  Node    next;
+
+    public  Node(int newData){
+        this.data   =   newData;
+        this.next   =   null;
+    }
+
+    /**
+     * @param newData   new data for the node to be added
+     * 
+     *                  Create a pointer that starts at the current node, so the head of the linked list;
+     *                  Walk thorough the linked list until we get to the end of the linked list;
+     *                      - we are not at the end of the linked list as long as there is something after;
+     *                  Update the pointer created  -   keep moving to the end;
+     *                  At the end, create this new node;
+     *                      
+     */
+    
+    public  void addToTail(int newData){
+        Node currentNode  =  this;
+        
+        while(currentNode.next != null){
+            currentNode = currentNode.next;
+        }
+        
+        currentNode.next = new Node(newData);
+    }
+    
+}
+```
+If we want to add and element into the front of LinkedList - we gonna actually change what the
+`head node` is. This is a small **issue**: 
+
+>What if multiple objects need a reference to the linked list, and then the head of the linked list changes? 
+Some objects might still be pointing to the old head.
+
+In this case the second solution is preferred
+<br>
+<br>
+
+2.  Implement a `LinkedList` class that _wraps_ the `Node` class.This would essentially just have a single member variable: the head Node. 
+    This would largely resolve the earlier issue.
+
+```java
+//  package com.jetbrains;
+public class LinkedList{
+    private Node    headNode;
+
+    public  LinkedList(){
+        this.headNode   =   null;
+    }
+    
+    /**
+     * @param newData   new data for the node to be added
+     *
+     *                  Create a pointer that starts/points at/to the head node, so the head of the linked list;
+     *                  If we don't have a head -> create it and return;
+     *                  Walk thorough the linked list until we get to the end of the linked list;
+     *                      - we are not at the end of the linked list as long as there is something after;
+     *                  Update the pointer created  -   keep moving to the end;
+     *                  At the end, create this new node;
+     *
+     */
+
+    public  void addToTail(int newData){
+        if(this.headNode  ==  null){ 
+            this.headNode = new Node(newData);
+            return;
+        }
+        
+        Node currentNode = this.headNode;
+        
+        while(currentNode.next != null){
+            currentNode = currentNode.next;
+        }
+
+        currentNode.next = new Node(newData);
+    }
+    
+    
+}
+```
+---
+<br>
+
+### Basic Operations
+
+1.   **Insertion**   - Adds an element of the linked list 
+     -  insert a node at beginning
+     -  insert a node at the end of list
+     -  insert a node after a specified node
+    
+
+2.   **Deletion**    - Deletes an element from the linked list
+     - delete the first node
+     - delete the last node 
+     - delete a node with a specified data
+    
+
+3.   **Traversing** or **Searching**
+     - traversing the linked list
+     - searching for data, by finding the node that contain the data wanted
+
+<br>
+
+#### Insertion
+##### 1.1 insert a node at beginning
+![img_4.png](resources/img_4.png)
+```java
+/**
+ * @param newData   new data for creating the new node
+ *
+ *                  Create a new node with the data passed as parameter
+ *                  Set the new node created to point to the head of the list
+ *                  Set the head of the list to be the new node added
+ *
+ */
+
+public void insertNodeAtBeginning(int newData){
+        Node newNode    =   new Node(newData);
+        newNode.next    =   this.headNode; 
+        this.headNode   =   newNode;     
+}
+```
+<br>
+
+##### 1.2 insert a node at the end of list
+![img_5.png](resources/img_5.png)
+```java
+/**
+ * @param newData   new data for the node to be added
+ *
+ *                  If we don't have a head -> create it and return;
+ *                  Create a pointer that starts/points at/to the head node, so the head of the linked list;
+ *                  Walk thorough the linked list until we get to the end of the linked list;
+ *                      - we are not at the end of the linked list as long as there is something after;
+ *                  Update the pointer created  -   keep moving to the end;
+ *                  At the end make the last node to point to new created node;
+ *
+ */
+public void insertValueAtEnd(int newData){
+    if(this.headNode == null){
+        this.headNode = new Node(newData);  
+        return;
+    }
+    
+    Node currentNode = headNode; 
+    
+    while(currentNode.next != null){  
+            currentNode = currentNode.next; 
+    }
+
+    currentNode.next = new Node(newData);
+}
+```
+<br>
+
+##### 1.3   Insert a node at the end of list
+![img_6.png](resources/img_6.png)
+```java
+/**
+ * @param newData   new data for the node to be added
+ * @param prevNode  previous node after which we want to add the new node                 
+ *
+ *                  The prevNode cannot be null - return
+ *                  Create the new node 
+ *                  Set(link) the new node to (reference) point to the prevNode reference
+ *                  Set(link) the prevNode to (reference) point to the new node inserted
+ *
+ */
+public void insertValueAfterNode(Node prevNode, int newData){
+        if(prevNode.next == null){    
+            System.out.println("The given previous node cannot be null");  
+            return;
+        }
+
+        Node newNode    =   new Node(newData);
+        newNode.next    =   prevNode.next; 
+        prevNode.next   =   newNode;
+}
+```
+<br>
+
+##### 2.1   Delete the first node
+```java
+/**
+ *
+ *                  If head is null - list is empty - return
+ *                  Set the head to be the next node after the head
+ *
+ */
+public void deleteHead(){
+    if(this.head == null){
+        System.out.println("List is empty");
+        return
+    }
+    
+    this.head = this.head.next;
+}
+```
+<br>
+
+##### 2.2   Delete the last node
+```java
+/**
+ *
+ *                  If head is null - list is empty - return
+ *                  Create a pointer that starts/points at/to the head node, so the head of the linked list;
+ *                  Walk thorough the linked list until we get to the end of the linked list;
+ *                      -   we are not at the end of the linked list as long as there is something after;
+ *                  Set(link) the penultimate node to point to null;
+ *
+ *
+ */
+public void deleteTail(){
+    if(this.headNode == null){
+        System.out.println("List is empty");
+        return;
+    }
+
+    Node currentNode = this.headNode;
+    while(currentNode.next.next != null){
+        currentNode = currentNode.next;
+    }
+    
+    currentNode.next = null;
+}
+```
+<br>
+
+##### 2.3   Delete a node with a specified data
+![img_7.png](resources/img_7.png)
+```java
+/**
+ * @param dataToDelete   data wanted to delete from the list
+ *
+ *                  If head is null - list is empty - return
+ *                  Special Case:   Check if we want to delete the actual head of the list
+ *                  Create a pointer that starts/points at/to the head node, so the head of the linked list;
+ *                  Walk thorough the linked list until we get to the end of the linked list;
+ *                       -  we are not at the end of the linked list as long as there is something after;
+ *                  If the value found at the node is the data we want to delete make the reference to point to the next node;
+ *                       -  walk around the data we want to delete - to exclude it from the list
+ *
+ */
+public void deleteNodeByData(int dataToDelete){
+    if(this.headNode == null) {
+        return;
+    }
+
+    if (this.headNode.data == dataToDelete){ 
+        this.headNode = this.headNode.next;
+        return;
+    }
+
+    Node temp = this.headNode;                          
+
+    while(temp.next != null){                          
+        if(temp.next.data == dataToDelete){             
+            temp.next = temp.next.next;                
+            return;                        
+        }
+        temp = temp.next;                           
+    }
+}
+```
+<br>
+
+##### 3.1   Searching for data, by finding the node that contain the data wanted
+```java
+public Node searchFor(int dataToFind){
+    if(this.headNode == null){
+        System.out.println("LinkedList is empty");
+        return null;
+    }
+
+    Node temp = this.headNode;
+    while (temp != null){
+        if(temp.data == dataToFind){
+            System.out.println("Node found: " + "node info: " + temp + "\t node data: " + temp.data);
+            return temp;
+        }
+        temp = temp.next;
+    }
+
+    System.out.println("Value " + dataToFind + " not found...");
+    return null;
+}
+```
+<br>
+
+##### 3.2   Traversing the linked list
+```java
+public void showList(){
+    if(this.isEmpty()){
+        System.out.println("Empty List");
+    }
+    System.out.print();
+
+//  print the memory address of nodes  
+    for(Node temp = this.headNode; temp != null; temp=temp.next){
+        System.out.print(temp + "\t");
+    }
+    System.out.println();
+    
+//  print the data of nodes
+    for(Node temp = this.headNode; temp != null; temp=temp.next){
+        System.out.print(temp.data + "\t");
+    }
+    System.out.print();
+}
+```
+---
+<br>
+
+### Other Useful Operations
+
+-   Getters & Setters
+    - set the head node
+    - set the tail node
+    - get the head node data
+    - get the tail node data
+    - get the size
+    - check if empty
+    - clear the list
+    
+
+-   Swap nodes
+-   Return the middle node data
+-   The Nth last element of a singly linked list
+
