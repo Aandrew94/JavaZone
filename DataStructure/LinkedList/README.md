@@ -404,5 +404,189 @@ public void showList(){
 
 -   Swap nodes
 -   Return the middle node data
+-   Delete the middle node    
 -   The Nth last element of a singly linked list
 
+<br>
+
+####    Swap nodes
+```java
+public void  swapNodes(int data1, int data2){
+    System.out.println("Swapping " + data1 + " with " + data2 + "\n");
+
+    Node node1 = this.headNode;
+    Node node2 = this.headNode;
+
+    Node prevNode1 = null;
+    Node prevNode2 = null;
+
+    //  special_case:   if the elements are the same
+    if(data1 == data2){
+        System.out.println("Elements are the same, no swap is needed");
+        return;
+    }
+
+    //  if elements are not the same        -   search for data1
+    while(node1 != null){                   //  while node1 is not tail
+        if(node1.data == data1){            //  if data matches
+            break;                          //  data1 was found in list so break while loop
+        }
+                                                //  if data not found
+        prevNode1 = node1;                  //  make prevNode = actual node (to keep track of prev pointer)
+        node1 = node1.next;                 //  increment actual node
+    }
+
+    //  if elements are not the same        -   search for data2
+    while(node2 != null){                   //  while node1 is not tail
+        if(node2.data == data2){            //  if data matches
+            break;                          //  data2 was found in list so break while loop
+        }
+                                                //  if data not found
+        prevNode2 = node2;                  //  make prevNode = actual node (to keep track of prev pointer)
+        node2 = node2.next;                 //  increment actual node
+    }
+
+    //  special_case:   no matching was found
+    if(node1 == null || node2 == null){
+        System.out.println("Swap not possible - one or more elements are not in the list");
+        return;
+    }
+
+    //  Updating prevNode pointers
+    if(prevNode1 == null){              //  check if prevNode is the head - if true node1 is head
+        this.headNode = node2;          //  so make(update) node2 to be the head
+    } else {
+        prevNode1.next = node2;         //  set prevNode1.next to be the node2
+    }
+
+    if(prevNode2 == null){              //  check if prevNode is the head - if true node2 is head
+        this.headNode = node1;          //  so make(update) node1 to be the head
+    } else {
+        prevNode2.next = node1;         //  set prevNode2.next to be the node1;
+    }
+
+    //  Updating next nodes pointers    -   simple basic swap;
+    Node temp = node1.next;
+    node1.next = node2.next;
+    node2.next = temp;
+}
+```
+
+<br>
+
+####    Return the middle node data
+```java
+public int getMiddle(){
+    /** Half Speed
+     *
+        int count = 0;
+        Node fast = this.headNode;
+        Node slow = this.headNode;
+
+        while (fast != null){
+            fast = fast.next;
+            if (count % 2 != 0){
+                slow = slow.next;
+            }
+            count++;
+        }
+        return slow.data;
+     */
+    
+    Node fast = this.headNode;
+    Node slow = this.headNode;
+
+    while (fast != null){
+        fast = fast.next;
+        if(fast != null){
+            fast = fast.next;
+            slow = slow.next;
+        }
+    }
+    return slow.data;
+}
+```
+
+<br>
+
+####    Delete the middle node
+```java
+//  a -> b -> c     <->     a -> c 
+
+public boolean deleteMiddle(Node n){
+    if(n == null || n.next == null){
+        return false;
+    }
+
+    Node nextNode = n.next;
+    n.data = nextNode.data;
+    n.next = nextNode.next;
+    return true;
+}
+```
+
+<br>
+
+####    The Nth last element of a singly linked list
+```java
+public int findNthElement(int n){
+/**
+ *      METHOD A:   TC: O(n) & SC: O(n) - return the size - nth element from and array
+
+    ArrayList<Node>   listOfElements  =   new ArrayList<Node>(0);
+    Node currentNode = this.headNode;
+
+    while(currentNode != null){
+        listOfElements.add(currentNode);
+        currentNode = currentNode.next;
+    }
+ 
+    return listOfElements.get(listOfElements.size() - n).data;
+  */
+
+/**
+ *      METHOD B:   TC: O(n) & SC: O(1)
+
+    Node temp = null;
+    Node currnetNode = this.headNode;
+    int count = 0;
+    
+    while(currnetNode != null){
+        currnetNode = currnetNode.next;
+            if(count >= n) {
+                if (temp == null) {
+                    temp = this.headNode;
+                }
+            temp = temp.next;
+            }
+        count++;
+    }
+    
+    return temp.data;
+ */
+
+/**
+ *       METHOD C:   TC: O(n) & SC: O(1)
+ */
+
+    Node p1 = this.headNode;
+    Node p2 = this.headNode;
+
+    //  Move p1 N nodes into the list
+    for(int i=0; i<n; i++){
+        if(p1 == null){
+            return -1;    //  out of bounds
+        }
+        p1 = p1.next;
+    }
+
+    //  Move p1,p2 at same time
+    //  when p1 will be at end, p2 will be at the right element
+    while(p1 != null){
+        p1 = p1.next;
+        p2 = p2.next;
+    }
+    
+    return p2.data;
+}
+```
