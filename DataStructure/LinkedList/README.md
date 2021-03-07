@@ -9,6 +9,7 @@ The following diagram depicts a singly linked list:
 ![img_2.png](resources/img_2.png)
 
 The following diagram depicts a doubly linked list:
+
 ![img_1.png](resources/img_1.png)
 
 <br>
@@ -46,7 +47,7 @@ public class Node {
 ---
 
 
-## The LinkedList
+## The LinkedList implementation
 <br>
 There are 2 basically ways to implement it:
 
@@ -138,11 +139,25 @@ public class LinkedList{
 }
 ```
 ---
+
+<br>
+
+| **_Average/Worst Case_** | Time Complexity | 
+| ------ | ----------- |
+| Access | O(n) |
+| Search | O(n) |
+| Insertion | O(1) or O(n) | 
+| Deletion | O(1) or O(n)|
+
+| | Space Complexity |
+| ---- | ---- |
+| Worst Case | O(n) |
+
 <br>
 
 ### Basic Operations
 
-1.   **Insertion**   - Adds an element of the linked list 
+1.   **Insertion**   - Adds an element in the linked list 
      -  insert a node at beginning
      -  insert a node at the end of list
      -  insert a node after a specified node
@@ -155,8 +170,9 @@ public class LinkedList{
     
 
 3.   **Traversing** or **Searching**
-     - traversing the linked list
      - searching for data, by finding the node that contain the data wanted
+     - traversing the linked list
+     
 
 <br>
 
@@ -195,13 +211,13 @@ public void insertNodeAtBeginning(int newData){
  *                  At the end make the last node to point to new created node;
  *
  */
-public void insertValueAtEnd(int newData){
+public void insertNodeAtEnd(int newData){
     if(this.headNode == null){
         this.headNode = new Node(newData);  
         return;
     }
     
-    Node currentNode = headNode; 
+    Node currentNode = this.headNode; 
     
     while(currentNode.next != null){  
             currentNode = currentNode.next; 
@@ -212,7 +228,7 @@ public void insertValueAtEnd(int newData){
 ```
 <br>
 
-##### 1.3   Insert a node at the end of list
+##### 1.3   Insert a node after a specified node
 ![img_6.png](resources/img_6.png)
 ```java
 /**
@@ -238,6 +254,8 @@ public void insertValueAfterNode(Node prevNode, int newData){
 ```
 <br>
 
+
+#### Deletion
 ##### 2.1   Delete the first node
 ```java
 /**
@@ -247,7 +265,7 @@ public void insertValueAfterNode(Node prevNode, int newData){
  *
  */
 public void deleteHead(){
-    if(this.head == null){
+    if(this.headNode == null){
         System.out.println("List is empty");
         return
     }
@@ -323,6 +341,8 @@ public void deleteNodeByData(int dataToDelete){
 ```
 <br>
 
+
+#### Traversing or Searching
 ##### 3.1   Searching for data, by finding the node that contain the data wanted
 ```java
 public Node searchFor(int dataToFind){
@@ -334,7 +354,7 @@ public Node searchFor(int dataToFind){
     Node temp = this.headNode;
     while (temp != null){
         if(temp.data == dataToFind){
-            System.out.println("Node found: " + "node info: " + temp + "\t node data: " + temp.data);
+            System.out.println("Node found: " + "node adress: " + temp + "\t node data: " + temp.data);
             return temp;
         }
         temp = temp.next;
