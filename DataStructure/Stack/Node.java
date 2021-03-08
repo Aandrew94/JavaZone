@@ -1,4 +1,4 @@
-package com.jetbrains;
+//  package com.jetbrains;
 
 public final class Node {
 
@@ -9,6 +9,5 @@ public final class Node {
         this.data = data;
         this.next = null;
     }
-
-
+    
 }
