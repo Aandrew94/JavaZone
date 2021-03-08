@@ -155,12 +155,8 @@ public final class StackArr {
 | ------ | ----------- |
 | Access | O(n) |
 | Search | O(n) |
-| Insertion | O(1) or O(n) | 
-| Deletion | O(1) or O(n)|
-
-| | Space Complexity |
-| ---- | ---- |
-| Worst Case | O(n) |
+| Insertion | O(1) | 
+| Deletion | O(1) |
 
 <br>
 
