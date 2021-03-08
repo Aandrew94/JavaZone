@@ -48,18 +48,3 @@ public final class StackLinkL {
     }
 
 }
-/*
-
-    public final boolean isEmpty()
-
-    public final int peek()
-
-    public final void push(final int data)
-
-    public final int pop()
-    }
-
-    public final int getSize()
-
-    public void printStack()
-*/
