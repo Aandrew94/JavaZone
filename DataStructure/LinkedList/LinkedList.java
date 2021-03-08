@@ -1,5 +1,4 @@
-package com.jetbrains;
-
+//package com.jetbrains;
 import java.util.ArrayList;
 
 public class LinkedList {
@@ -18,7 +17,7 @@ public class LinkedList {
     }
 
 
-    public void insertNodeAtEnd(int newData){
+    public void insertNodeAtEnd(final int newData){
         if(this.headNode == null){              //  check if we have a head or if is null
             this.headNode = new Node(newData);  //  if true -> create the head;
             return;
@@ -34,13 +33,13 @@ public class LinkedList {
     }
 
 
-    public void insertValueAfterNode(Node prevNode, int newData){
+    public void insertValueAfterNode(final Node prevNode, final int newData){
         if(prevNode.next == null){                   //  check is previous node is not null - it shouldn't
             System.out.println("The given previous node cannot be null");       //  if it is, it means that the prev node is the tail (or last node)
             return;
         }
 
-        Node newNode = new Node(newData);
+        Node newNode    =   new Node(newData);
         newNode.next    =   prevNode.next;          //  set the new node to link (to reference) to the prev Node reference
         prevNode.next   =   newNode;                //  set the link (pointing) way of prev node to the new node inserted
     }
@@ -108,7 +107,7 @@ prevNode.next = newNode;
     }
 
 
-    public void deleteNodeByData(int dataToDelete){
+    public void deleteNodeByData(final int dataToDelete){
         if(this.headNode == null) {
             return;
         }
@@ -130,7 +129,7 @@ prevNode.next = newNode;
     }
 
 
-    public Node searchFor(int dataToFind){
+    public Node searchFor(final int dataToFind){
         if(this.headNode == null){
             System.out.println("LinkedList is empty");
             return null;
@@ -179,7 +178,7 @@ prevNode.next = newNode;
         return this.headNode;
     }
 
-    public  void    setHeadNode(Node newHead){
+    public  void    setHeadNode(final Node newHead){
         this.headNode = newHead;
     }
 
@@ -210,7 +209,7 @@ prevNode.next = newNode;
 
 
 
-    public void  swapNodes(int data1, int data2){
+    public void  swapNodes(final int data1,final int data2){
         System.out.println("Swapping " + data1 + " with " + data2 + "\n");
 
         Node node1 = this.headNode;
@@ -271,7 +270,7 @@ prevNode.next = newNode;
     }
 
 
-    public int findNthElement(int n){
+    public int findNthElement(final int n){
 /**
  *      METHOD A:   TC: O(n) & SC: O(n) - return the size - nth element from and array
 
@@ -361,7 +360,9 @@ prevNode.next = newNode;
         return slow.data;
     }
 
-    public boolean deleteMiddle(Node n){
+    public boolean deleteMiddle(final Node n){
+    //  a -> b -> c     <->     a -> c
+        
         if(n == null || n.next == null){
             return false;
         }
