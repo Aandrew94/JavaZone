@@ -69,7 +69,7 @@ public final class Queue {
         return data;
     }
 
-    public final void print(){
+    public final void display(){
         Node currentNode = this.head;
         while(currentNode != null){
             System.out.println(currentNode.data);
