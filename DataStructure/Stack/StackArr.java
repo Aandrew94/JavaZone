@@ -1,4 +1,4 @@
-package com.jetbrains;
+//  package com.jetbrains;
 
 public final class StackArr {
     private final int maxSize = 1000;
