@@ -10,8 +10,8 @@ It contains **two pointers (head and tail)**, with head pointing to the topmost 
 
 Whenever an element is added in the queue, **it is added at the tail** of the queue, and the element can be deleted only from the head of queue.
 
-![img.png](img.png)
-![img_1.png](img_1.png)
+![img.png](resources/img.png)
+![img_1.png](resources/img_1.png)
 <br>
 
 ---
@@ -100,7 +100,7 @@ public final class Queue {
 
 3.   **`enqueue(int item)`**   -   Add an item after tail of queue
 
-![img_3.png](img_3.png)
+![img_3.png](resources/img_3.png)
      
 4.   **`dequeue()`**    -   Removes an item from the head of the queue
 
