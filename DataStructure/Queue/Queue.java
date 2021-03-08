@@ -1,4 +1,4 @@
-package com.jetbrains;
+//  package com.jetbrains;
 
 public final class Queue {
     private static class Node{
@@ -48,7 +48,7 @@ public final class Queue {
         return data;
     }
 
-    public final void print(){
+    public final void display(){
         Node currentNode = this.head;
         while(currentNode != null){
             System.out.println(currentNode.data);
